@@ -1,14 +1,13 @@
-# Usamos una imagen de Java 17 (asegúrate que sea la versión de tu proyecto)
-FROM eclipse-temurin:17-jdk-alpine
 
-# Creamos el directorio de trabajo
+# Etapa 1: Compilación del código Java
+FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copiamos el archivo JAR generado desde la carpeta target
-COPY target/*.jar app.jar
-
-# Exponemos el puerto de tu aplicación (9090)
+# Etapa 2: Ejecución de la aplicación
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 9090
-
-# Comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
