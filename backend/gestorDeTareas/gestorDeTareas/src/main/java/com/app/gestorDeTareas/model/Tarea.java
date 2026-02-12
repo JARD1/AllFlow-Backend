@@ -23,6 +23,7 @@ public class Tarea {
     private LocalDateTime fechaExpiracion;
 
     private String usuarioIp;
+    private String usuarioID;
 
     // Este método asigna la fecha automáticamente antes de guardar en la DB
     @PrePersist

@@ -15,7 +15,5 @@ public interface TareaRepository extends JpaRepository<Tarea, Long> {
     // Esto buscará solo las tareas que NO estén en estado 'COMPLETADA'
     List<Tarea> findByEstadoNot(String estado);
 
-    List<Tarea> findByUsuarioIp(String usuarioIp);
-
-    Optional<Tarea> findByIdAndUsuarioIp(Long id, String usuarioIp);
+    List<Tarea> findByUsuarioID(String usuarioID);
 }
